@@ -1,0 +1,197 @@
+/* ALL ANIMATIONS page: heading, search, card grid and card styles. */
+
+.page-head {
+  margin-bottom: 28px;
+}
+
+.page-head h1 {
+  font-size: clamp(28px, 4.2vw, 46px);
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+}
+
+.toolbar {
+  margin-bottom: 32px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 50px;
+  max-width: 520px;
+  padding: 0 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.search:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.12);
+}
+
+.search svg {
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+  flex: none;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font-size: 15px;
+}
+
+.search input::placeholder {
+  color: var(--muted);
+}
+
+/* Grid: cards skip rendering while off screen */
+.grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.card {
+  position: relative;
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 300px 250px;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease);
+  animation: cardIn 0.6s var(--ease) backwards;
+  animation-delay: min(calc(var(--i, 0) * 70ms), 500ms);
+}
+
+/* Glow uses opacity on a pseudo element, so hover never repaints the card */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 16px;
+  pointer-events: none;
+  box-shadow: 0 22px 44px -24px rgba(245, 197, 24, 0.5);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translate3d(0, -4px, 0);
+  border-color: rgba(245, 197, 24, 0.45);
+}
+
+.card:hover::after,
+.card:focus-visible::after {
+  opacity: 1;
+}
+
+.card-thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #0e0e12;
+  overflow: hidden;
+}
+
+.card-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.6s var(--ease);
+}
+
+.card:hover .card-video {
+  transform: translate3d(0, 0, 0) scale(1.03);
+}
+
+.card-progress {
+  height: 3px;
+  background: var(--line-strong);
+  overflow: hidden;
+}
+
+.card-progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.card-meta {
+  padding: 14px 16px 16px;
+  display: grid;
+  gap: 4px;
+}
+
+.card-meta h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.card-cat {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.empty-state {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  padding: 48px 32px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 16px;
+  color: var(--muted);
+}
+
+.empty-state h2 {
+  font-size: 18px;
+  color: var(--text);
+}
+
+.empty-state p {
+  margin: 0;
+  max-width: 56ch;
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .card-meta {
+    padding: 12px;
+  }
+
+  .card-meta h3 {
+    font-size: 13px;
+  }
+}

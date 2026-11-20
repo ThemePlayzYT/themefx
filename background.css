@@ -1,0 +1,71 @@
+/* Animated background. Transform-only layers on their own compositor layer. */
+
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+.blob {
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  will-change: transform;
+  animation: drift 28s ease-in-out infinite alternate;
+}
+
+.blob-yellow {
+  top: -28%;
+  left: -18%;
+  background: radial-gradient(circle, rgba(245, 197, 24, 0.14), transparent 62%);
+}
+
+.blob-violet {
+  right: -22%;
+  bottom: -30%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.16), transparent 62%);
+  animation-duration: 34s;
+  animation-delay: -10s;
+}
+
+.blob-soft {
+  top: 30%;
+  left: 35%;
+  width: 40vmax;
+  height: 40vmax;
+  background: radial-gradient(circle, rgba(245, 197, 24, 0.05), transparent 60%);
+  animation-duration: 40s;
+  animation-delay: -18s;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6vw, 4vh, 0) scale(1.12);
+  }
+}
+
+.grid-lines {
+  position: absolute;
+  inset: -64px;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+          mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  will-change: transform;
+  animation: gridMove 40s linear infinite;
+}
+
+@keyframes gridMove {
+  to {
+    transform: translate3d(64px, 64px, 0);
+  }
+}

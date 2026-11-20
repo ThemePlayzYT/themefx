@@ -1,0 +1,75 @@
+/* Animation detail page: player, timeline, info and the collection list below. */
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr);
+  gap: 44px;
+  align-items: start;
+}
+
+.player-col {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.player-frame {
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.detail-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.info-col {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+  padding-top: 8px;
+}
+
+.detail-cat {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.detail-title {
+  font-size: clamp(26px, 3.4vw, 38px);
+  line-height: 1.1;
+}
+
+.detail-desc {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--muted);
+}
+
+.download-btn {
+  justify-self: start;
+}
+
+.related {
+  margin-top: 72px;
+}
+
+.related h2 {
+  margin-bottom: 22px;
+  font-size: 20px;
+}
+
+@media (max-width: 860px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+}
